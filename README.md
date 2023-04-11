@@ -34,18 +34,18 @@ The information in this directory is the result of the FastAPI courses given by 
 
 <!-- TABLE OF CONTENTS -->
 <!-- omit in toc -->
-## :pencil:Table of contents
-- [:pushpin:About The Project](#pushpinabout-the-project)
-	- [Built With](#built-with)
-- [:checkered\_flag:Getting Started](#checkered_flaggetting-started)
-	- [Prerequisites](#prerequisites)
-	- [Installation](#installation)
-- [:balloon:Usage](#balloonusage)
-- [:roller\_coaster:Roadmap](#roller_coasterroadmap)
-- [:busts\_in\_silhouette:Contributing](#busts_in_silhouettecontributing)
-- [:key:License](#keylicense)
-- [:pencil2:Authors](#pencil2authors)
-- [:tada:Acknowledgments](#tadaacknowledgments)
+## Table of contents
+- [What is FastAPI?](#what-is-fastapi)
+	- [Previous knowledge](#previous-knowledge)
+- [Run the project](#run-the-project)
+- [Run the project without Docker](#run-the-project-without-docker)
+	- [Useful flags](#useful-flags)
+- [Documentation with Swagger UI](#documentation-with-swagger-ui)
+- [HTTP methods](#http-methods)
+	- [Create a resource](#create-a-resource)
+	- [Parameters](#parameters)
+		- [Path](#path)
+		- [Query](#query)
 
 
 
@@ -64,9 +64,9 @@ FastAPI was created by Sebastián Ramírez, and it was developed based on librar
 * [x] Python fundamentals
 * [x] Oriented object programming
 * [x] API REST concepts
-> Suggested video: [What is an API REST?](https://www.youtube.com/watch?v=7YcW25PHnAA)
-
-> [HTTP methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
+> Suggested resources:
+> > * [What is an API REST?](https://www.youtube.com/watch?v=7YcW25PHnAA)
+> > * [HTTP methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
 
 
 ## Run the project
@@ -84,6 +84,7 @@ To run an application in this repository without Docker, just clone the reposito
 ```bash
 uvicorn <filename>:<appname>
 ```
+
 ### Useful flags
 | Flag | Description |
 | --- | --- |
@@ -110,4 +111,43 @@ The HTTP methods are used to specify the type of action that will be performed o
 | `PUT` | Update a resource. |
 | `DELETE` | Delete a resource. |
 
-### GET
+### Create a resource
+To create a resource, it is necessary to send the data in the body of the request. The data must be in JSON format. For example, to create a user, the following request can be made:
+
+```python
+@<appname>.<httpmethod>('<path>')
+def <functionname>():
+	...
+	return <response>
+```
+
+### Parameters
+The parameters can be of different types, such as:
+
+| Type | Description |
+| --- | --- |
+| `Path` | The parameter is part of the path. |
+| `Query` | The parameter is a query parameter. |
+
+#### Path
+This type of parameter is used to specify the resource that will be retrieved and it will call the server with the url `http://localhost:8000/<path>/<parameter1>/<parameter2>`.
+
+```python
+@<appname>.<httpmethod>('<path>/{<parameter1>}/{<parameter2>}')
+def <functionname>(<parameter1>: <type>, <parameter2>: <type>):
+	...
+	return <response>
+```
+
+#### Query
+This type of parameter is used to specify the resource that will be retrieved and it will call the server with the url `http://localhost:8000/<path>?<parameter1>=<value1>&<parameter2>=<value2>`.
+
+```python
+@<appname>.<httpmethod>('<path>')
+def <functionname>(<parameter1>: <type>, <parameter2>: <type>):
+	...
+	return <response>
+```
+
+> **Note**: The only difference between the `Path` and `Query` parameters is that the `Path` parameter must be specified in the decorator and in the function, and the `Query` parameter must just be specified in the function.
+
