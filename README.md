@@ -69,4 +69,24 @@ FastAPI was created by Sebastián Ramírez, and it was developed based on librar
 > [HTTP methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
 
 
+## Run the project
+When an application is created, it is necessary to run it. To do this, we will use the following command:
 
+```bash
+uvicorn <filname>:<appname>
+```
+### Useful flags
+| Flag | Description |
+| --- | --- |
+| `--reload` | Automatically reload the server when a change is made. |
+| `--port` | Specify the port to run the server. |
+| `--host` | Specify the host to run the server. |
+
+> __Note__: In WSL2, it is necessary to specify the host as `0.0.0.0` to be able to access the server from the browser. This is because the app is running in a virtual machine and to access from another machine, it is necessary to specify the host.
+
+## Documentation with Swagger UI
+To access the documentation, it is just necessary add `/docs` to the URL. For example, if the server is running in `http://localhost:8000`, the documentation will be in `http://localhost:8000/docs`.
+
+<div align="center">
+	<img src="https://user-images.githubusercontent.com/30636259/231292366-aa6cf1a4-57c7-49e2-831c-69163ad8b3d5.png" alt="Logo" width="650"/>
+</div>
