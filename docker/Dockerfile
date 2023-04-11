@@ -5,4 +5,5 @@ RUN pip install fastapi && \
 
 WORKDIR /home/fastapi
 
-CMD ["uvicorn", "main:app", "--reload", "--port", "5000", "--host", "0.0.0.0"]
+ENTRYPOINT ["uvicorn", "--reload", "--port", "5000", "--host", "0.0.0.0"]
+CMD ["main:app"]
