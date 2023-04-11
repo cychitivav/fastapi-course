@@ -70,10 +70,19 @@ FastAPI was created by Sebastián Ramírez, and it was developed based on librar
 
 
 ## Run the project
-When an application is created, it is necessary to run it. To do this, we will use the following command:
+To run an application in this repository, just clone the repository and run the following command:
 
 ```bash
-uvicorn <filname>:<appname>
+./docker/start.sh <filename>:<appname>
+```
+
+This script will create a docker container with the necessary dependencies to run the application using the `uvicorn` server. The application will be available in `http://localhost:5000`.
+
+## Run the project without Docker
+To run an application in this repository without Docker, just clone the repository and run the following command (make sure to have the dependencies installed):
+
+```bash
+uvicorn <filename>:<appname>
 ```
 ### Useful flags
 | Flag | Description |
@@ -90,3 +99,15 @@ To access the documentation, it is just necessary add `/docs` to the URL. For ex
 <div align="center">
 	<img src="https://user-images.githubusercontent.com/30636259/231292366-aa6cf1a4-57c7-49e2-831c-69163ad8b3d5.png" alt="Logo" width="650"/>
 </div>
+
+## HTTP methods
+The HTTP methods are used to specify the type of action that will be performed on the resource. The most common are:
+
+| Method | Description |
+| --- | --- |
+| `GET` | Retrieve a resource. |
+| `POST` | Create a resource. |
+| `PUT` | Update a resource. |
+| `DELETE` | Delete a resource. |
+
+### GET
