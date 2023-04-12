@@ -18,38 +18,34 @@ Find and replace the following text with the name of the project:
 # FastAPI courses
 The information in this directory is the result of the FastAPI courses given by [Platzi](https://platzi.com/cursos/fastapi/).
 
-[**Explore the docs »**](https://github.com/cychitivav/fastapi_course/wiki)
-
-[View Demo](https://github.com/cychitivav/fastapi_course) · [Report Bug](https://github.com/cychitivav/fastapi_course/issues) · [Request Feature](https://github.com/cychitivav/fastapi_course/issues)
-
-[![Contributors](https://img.shields.io/github/contributors/cychitivav/fastapi_course.svg?style=for-the-badge)](https://github.com/cychitivav/fastapi_course/graphs/contributors)
-[![Forks](https://img.shields.io/github/forks/cychitivav/fastapi_course.svg?style=for-the-badge)](https://github.com/cychitivav/fastapi_course/network/members)
-[![Stargazers](https://img.shields.io/github/stars/cychitivav/fastapi_course.svg?style=for-the-badge)](https://github.com/cychitivav/fastapi_course/stargazers)
-[![Issues](https://img.shields.io/github/issues/cychitivav/fastapi_course.svg?style=for-the-badge)](https://github.com/cychitivav/fastapi_course/issues)
-[![MIT License](https://img.shields.io/github/license/cychitivav/fastapi_course.svg?style=for-the-badge)](https://github.com/cychitivav/fastapi_course/blob/main/LICENSE)
-
-
 </div>
 
 
 <!-- TABLE OF CONTENTS -->
 <!-- omit in toc -->
 ## Table of contents
-- [What is FastAPI?](#what-is-fastapi)
+- [:pushpin:About the course](#pushpinabout-the-course)
 	- [Previous knowledge](#previous-knowledge)
-- [Run the project](#run-the-project)
-- [Run the project without Docker](#run-the-project-without-docker)
-	- [Useful flags](#useful-flags)
-- [Documentation with Swagger UI](#documentation-with-swagger-ui)
-- [HTTP methods](#http-methods)
-	- [Create a resource](#create-a-resource)
-	- [Parameters](#parameters)
-		- [Path](#path)
-		- [Query](#query)
+	- [Documentation with Swagger UI](#documentation-with-swagger-ui)
+- [:checkered\_flag:Getting Started](#checkered_flaggetting-started)
+	- [Prerequisites](#prerequisites)
+	- [Installation](#installation)
+		- [Docker](#docker)
+		- [Local](#local)
+- [:roller\_coaster:Roadmap](#roller_coasterroadmap)
+	- [HTTP methods](#http-methods)
+		- [Create a resource](#create-a-resource)
+		- [Parameters](#parameters)
+			- [Path](#path)
+			- [Query](#query)
 
 
+## :pushpin:About the course
 
-## What is FastAPI?
+<div align="center">
+	<img src="https://user-images.githubusercontent.com/30636259/231292366-aa6cf1a4-57c7-49e2-831c-69163ad8b3d5.png" alt="Logo" width="650"/>
+</div>
+
 FastAPI is a modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints. Some of its main features are:
 
 * Fast
@@ -68,8 +64,17 @@ FastAPI was created by Sebastián Ramírez, and it was developed based on librar
 > > * [What is an API REST?](https://www.youtube.com/watch?v=7YcW25PHnAA)
 > > * [HTTP methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
 
+### Documentation with Swagger UI
+To access the documentation, it is just necessary add `/docs` to the URL. For example, if the server is running in `http://localhost:8000`, the documentation will be in `http://localhost:8000/docs`. It will show a page with all the http methods and the parameters that can be used in the server.
 
-## Run the project
+## :checkered_flag:Getting Started
+### Prerequisites
+* [Docker](https://docs.docker.com/get-docker/)
+* [FastAPI](https://fastapi.tiangolo.com/)
+* [Uvicorn](https://www.uvicorn.org/)
+
+### Installation
+#### Docker
 To run an application in this repository, just clone the repository and run the following command:
 
 ```bash
@@ -78,30 +83,25 @@ To run an application in this repository, just clone the repository and run the 
 
 This script will create a docker container with the necessary dependencies to run the application using the `uvicorn` server. The application will be available in `http://localhost:5000`.
 
-## Run the project without Docker
+#### Local
 To run an application in this repository without Docker, just clone the repository and run the following command (make sure to have the dependencies installed):
 
 ```bash
 uvicorn <filename>:<appname>
 ```
 
-### Useful flags
-| Flag | Description |
-| --- | --- |
-| `--reload` | Automatically reload the server when a change is made. |
-| `--port` | Specify the port to run the server. |
-| `--host` | Specify the host to run the server. |
+> __Note__
+> | Flag | Description |
+> | --- | --- |
+> | `--reload` | Automatically reload the server when a change is made. |
+> | `--port` | Specify the port to run the server. |
+> | `--host` | Specify the host to run the server. |
+> > __Note__: In WSL2, it is necessary to specify the host as `0.0.0.0` to be able to access the server from the browser. This is because the app is running in a virtual machine and to access from another machine, it is necessary to specify the host.
 
-> __Note__: In WSL2, it is necessary to specify the host as `0.0.0.0` to be able to access the server from the browser. This is because the app is running in a virtual machine and to access from another machine, it is necessary to specify the host.
 
-## Documentation with Swagger UI
-To access the documentation, it is just necessary add `/docs` to the URL. For example, if the server is running in `http://localhost:8000`, the documentation will be in `http://localhost:8000/docs`.
-
-<div align="center">
-	<img src="https://user-images.githubusercontent.com/30636259/231292366-aa6cf1a4-57c7-49e2-831c-69163ad8b3d5.png" alt="Logo" width="650"/>
-</div>
-
-## HTTP methods
+<!-- ROADMAP -->
+## :roller_coaster:Roadmap
+### HTTP methods
 The HTTP methods are used to specify the type of action that will be performed on the resource. The most common are:
 
 | Method | Description |
@@ -111,7 +111,7 @@ The HTTP methods are used to specify the type of action that will be performed o
 | `PUT` | Update a resource. |
 | `DELETE` | Delete a resource. |
 
-### Create a resource
+#### Create a resource
 To create a resource, it is necessary to send the data in the body of the request. The data must be in JSON format. For example, to create a user, the following request can be made:
 
 ```python
@@ -121,7 +121,7 @@ def <functionname>():
 	return <response>
 ```
 
-### Parameters
+#### Parameters
 The parameters can be of different types, such as:
 
 | Type | Description |
@@ -129,7 +129,7 @@ The parameters can be of different types, such as:
 | `Path` | The parameter is part of the path. |
 | `Query` | The parameter is a query parameter. |
 
-#### Path
+##### Path
 This type of parameter is used to specify the resource that will be retrieved and it will call the server with the url `http://localhost:8000/<path>/<parameter1>/<parameter2>`.
 
 ```python
@@ -139,7 +139,7 @@ def <functionname>(<parameter1>: <type>, <parameter2>: <type>):
 	return <response>
 ```
 
-#### Query
+##### Query
 This type of parameter is used to specify the resource that will be retrieved and it will call the server with the url `http://localhost:8000/<path>?<parameter1>=<value1>&<parameter2>=<value2>`.
 
 ```python
@@ -149,5 +149,25 @@ def <functionname>(<parameter1>: <type>, <parameter2>: <type>):
 	return <response>
 ```
 
-> **Note**: The only difference between the `Path` and `Query` parameters is that the `Path` parameter must be specified in the decorator and in the function, and the `Query` parameter must just be specified in the function.
+> **Note**
+> * The only difference between the `Path` and `Query` parameters is that the `Path` parameter must be specified in the decorator and in the function, and the `Query` parameter must just be specified in the function.
+> * If the parameter is optional, it is necessary to specify a default value in the function.
+> * To send or receive the data in a dictionary, it is necessary import the Body class from `fastapi` and specify it as a default value in each parameter.
+
+> __Example__:
+> ```python
+> @app.post('/movies')
+> def create_movie(id: int = Body(), title: str = Body(), year: int = Body()):
+> 	moviedb[id] = {'title': title, 'year': year}
+> 	return moviedb[id]
+> ```
+> In this example the request must be sent with the following body:
+> ```json	
+> {
+>	"id": 1,
+> 	"title": "The Matrix",
+> 	"year": 1999
+> }
+> ```
+
 
