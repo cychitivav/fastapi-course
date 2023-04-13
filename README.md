@@ -15,8 +15,8 @@ Find and replace the following text with the name of the project:
 <img src="https://user-images.githubusercontent.com/30636259/229298636-8bb438e5-7f38-4122-bee8-6c4f9ee921ad.png" alt="Logo" width="80"/>
 
 <!-- omit in toc -->
-# FastAPI courses
-The information in this directory is the result of the FastAPI courses given by [Platzi](https://platzi.com/cursos/fastapi/).
+# FastAPI course
+The information in this repository is the result of the FastAPI course given by [Platzi](https://platzi.com/cursos/fastapi/).
 
 </div>
 
@@ -34,10 +34,11 @@ The information in this directory is the result of the FastAPI courses given by 
 		- [Local](#local)
 - [:roller\_coaster:Roadmap](#roller_coasterroadmap)
 	- [HTTP methods](#http-methods)
-		- [Create a resource](#create-a-resource)
-		- [Parameters](#parameters)
-			- [Path](#path)
-			- [Query](#query)
+	- [Create a resource](#create-a-resource)
+	- [Parameters](#parameters)
+		- [Path](#path)
+		- [Query](#query)
+	- [Schemas](#schemas)
 
 
 ## :pushpin:About the course
@@ -96,7 +97,7 @@ uvicorn <filename>:<appname>
 > | `--reload` | Automatically reload the server when a change is made. |
 > | `--port` | Specify the port to run the server. |
 > | `--host` | Specify the host to run the server. |
-> > __Note__: In WSL2, it is necessary to specify the host as `0.0.0.0` to be able to access the server from the browser. This is because the app is running in a virtual machine and to access from another machine, it is necessary to specify the host.
+> > __Warning__: In WSL2, it is necessary to specify the host as `0.0.0.0` to be able to access the server from the browser. This is because the app is running in a virtual machine and to access from another machine, it is necessary to specify the host.
 
 
 <!-- ROADMAP -->
@@ -111,7 +112,7 @@ The HTTP methods are used to specify the type of action that will be performed o
 | `PUT` | Update a resource. |
 | `DELETE` | Delete a resource. |
 
-#### Create a resource
+### Create a resource
 To create a resource, it is necessary to send the data in the body of the request. The data must be in JSON format. For example, to create a user, the following request can be made:
 
 ```python
@@ -121,7 +122,7 @@ def <functionname>():
 	return <response>
 ```
 
-#### Parameters
+### Parameters
 The parameters can be of different types, such as:
 
 | Type | Description |
@@ -129,7 +130,7 @@ The parameters can be of different types, such as:
 | `Path` | The parameter is part of the path. |
 | `Query` | The parameter is a query parameter. |
 
-##### Path
+#### Path
 This type of parameter is used to specify the resource that will be retrieved and it will call the server with the url `http://localhost:8000/<path>/<parameter1>/<parameter2>`.
 
 ```python
@@ -139,8 +140,8 @@ def <functionname>(<parameter1>: <type>, <parameter2>: <type>):
 	return <response>
 ```
 
-##### Query
-This type of parameter is used to specify the resource that will be retrieved and it will call the server with the url `http://localhost:8000/<path>?<parameter1>=<value1>&<parameter2>=<value2>`.
+#### Query
+This type of parameter is used to specify the resource that will be retrieved and it will call the server with the url `http://localhost:8000/<path>/?<parameter1>=<value1>&<parameter2>=<value2>`.
 
 ```python
 @<appname>.<httpmethod>('<path>')
@@ -149,7 +150,9 @@ def <functionname>(<parameter1>: <type>, <parameter2>: <type>):
 	return <response>
 ```
 
-> **Note**
+> __Warning__: The path in the decorator must end with a `/`.
+
+> **Note**:
 > * The only difference between the `Path` and `Query` parameters is that the `Path` parameter must be specified in the decorator and in the function, and the `Query` parameter must just be specified in the function.
 > * If the parameter is optional, it is necessary to specify a default value in the function.
 > * To send or receive the data in a dictionary, it is necessary import the Body class from `fastapi` and specify it as a default value in each parameter.
@@ -170,4 +173,16 @@ def <functionname>(<parameter1>: <type>, <parameter2>: <type>):
 > }
 > ```
 
+
+### Schemas
+The schemas are used to specify the data that will be sent or received in the request. It is possible thanks to the `Pydantic` library. The schemas are defined as classes that inherit from `BaseModel` and the attributes are defined as class attributes. For example, to define a schema for a user, the following code can be used:
+
+```python
+from pydantic import BaseModel
+
+class User(BaseModel):
+	<attribute1>: <type>
+	<attribute2>: <type>
+	...
+```
 
