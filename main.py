@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Body
+from fastapi import FastAPI, Body, Path
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
 
@@ -7,7 +7,7 @@ movies = [
         "id": 1,
         "title": "Avatar",
         "overview": "En un exuberante planeta llamado Pandora viven los Na'vi, seres que ...",
-        "year": "2009",
+        "year": 2009,
         "rating": 7.8,
         "category": "Acción"
     },
@@ -15,7 +15,7 @@ movies = [
 		"id": 2,
 		"title": "Titanic",
 		"overview": "Un joven artista se gana la vida pintando retratos de pasajeros ...",
-		"year": "1997",
+		"year": 1997,
 		"rating": 7.8,
 		"category": "Drama"
 	},
@@ -23,7 +23,7 @@ movies = [
 		"id": 3,
 		"title": "The Avengers",
 		"overview": "Los Vengadores y sus aliados deberán estar dispuestos a sacrificarlo todo ...",
-		"year": "2012",
+		"year": 2012,
 		"rating": 8.1,
 		"category": "Acción"
 	},
@@ -32,11 +32,23 @@ movies = [
 # Pydantic models are used to validate the data that is passed to the endpoint
 class Movie(BaseModel):
 	id: int | None
-	title: str = Field(max_length=15)
+	title: str = Field(default="", min_length=3, max_length=15)
 	overview: str
-	year: int
+	year: int = Field(default=2022, ge=2000, le=2023)
 	rating: float
 	category: str
+
+	class Config:
+		schema_extra = {
+			"example": {
+				"id": 1,
+				"title": "Avatar",
+				"overview": "En un exuberante planeta llamado Pandora viven los Na'vi, seres que ...",
+				"year": 2009,
+				"rating": 7.8,
+				"category": "Acción"
+			}
+		}
 
 app = FastAPI()
 app.title = "My first app"
@@ -56,7 +68,7 @@ def get_movies():
 
 # Path parameters are used to pass data to the endpoint
 @app.get("/movies/{id}", tags=['movies'])
-def get_movie(id: int):
+def get_movie(id: int = Path(le=200, ge=1)):
     for movie in movies:
         if movie['id'] == id:
             return movie

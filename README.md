@@ -186,3 +186,18 @@ class User(BaseModel):
 	...
 ```
 
+# Validation
+The validation is done automatically by the `Pydantic` library. For example, if the attribute `name` is defined as a string, the following request will return an error:
+
+```json
+{
+	"name": 123
+}
+```
+
+With the `Field` class, it is possible to specify the type of data that will be received and the validation that will be done. For example:
+
+```python
+<attribute1>: str = Field(..., min_length=3, max_length=50)
+<attribute2>: int = Field(..., gt=70, lt=100)
+```
