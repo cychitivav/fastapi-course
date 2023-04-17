@@ -39,6 +39,13 @@ The information in this repository is the result of the FastAPI course given by 
 		- [Path](#path)
 		- [Query](#query)
 	- [Schemas](#schemas)
+	- [Validation](#validation)
+		- [Data validation](#data-validation)
+		- [Parameter validation](#parameter-validation)
+	- [Responses](#responses)
+	- [Status codes](#status-codes)
+	- [Authentication](#authentication)
+		- [Token](#token)
 
 
 ## :pushpin:About the course
@@ -83,6 +90,8 @@ To run an application in this repository, just clone the repository and run the 
 ```
 
 This script will create a docker container with the necessary dependencies to run the application using the `uvicorn` server. The application will be available in `http://localhost:5000`.
+
+> __Note__: If you don't pass the app argument, it will use the default name `main:app`.
 
 #### Local
 To run an application in this repository without Docker, just clone the repository and run the following command (make sure to have the dependencies installed):
@@ -186,7 +195,7 @@ class User(BaseModel):
 	...
 ```
 
-# Validation
+### Validation
 The validation is done automatically by the `Pydantic` library. For example, if the attribute `name` is defined as a string, the following request will return an error:
 
 ```json
@@ -195,9 +204,53 @@ The validation is done automatically by the `Pydantic` library. For example, if 
 }
 ```
 
+#### Data validation
 With the `Field` class, it is possible to specify the type of data that will be received and the validation that will be done. For example:
 
 ```python
 <attribute1>: str = Field(..., min_length=3, max_length=50)
 <attribute2>: int = Field(..., gt=70, lt=100)
 ```
+
+#### Parameter validation
+With the `Path` and `Query` classes, it is possible to specify the type of data that will be received and the validation that will be done. For example:
+
+```python
+@<appname>.<httpmethod>('<path>/{<parameter1>}/{<parameter2>}')
+def <functionname>(<parameter1>: Path(..., gt=0), <parameter2>: Query(..., gt=0)):
+	...
+	return <response>
+```
+
+### Responses
+The responses can be used to specify the data that will be sent in the response. These responses are imported from `fastapi` and they are defined as classes that inherit from `ResponseModel`. For example, to define a response for a user, the following code can be used:
+
+```python
+from fastapi.responses import HTMLResponse, JSONResponse, ...
+
+@<appname>.<httpmethod>('<path>', ..., response_model=<response_class>)
+def <functionname>():
+	...
+	return <response>
+```
+
+### Status codes
+The status codes are used to specify the status of the response. The information about the status codes can be found in the [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status). In `fastapi`, the status codes are passed as parameters in the decorator. For example:
+
+```python
+@<appname>.<httpmethod>('<path>', ..., status_code=<number>)
+def <functionname>():
+	...
+	return <response>
+```
+
+> __Note__: if fastapi responses are used, the status code can be specified in the response class like this:
+> ```python
+> return JSONResponse(status_code=<number>, content=<response>)
+> ``
+
+Also, it is possible to get the status code from the `status` module of `fastapi`.
+
+### Authentication
+#### Token
+The token authentication is used to authenticate the user. 

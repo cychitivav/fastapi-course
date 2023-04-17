@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Body, Path
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from pydantic import BaseModel, Field
 
 movies = [
@@ -61,9 +61,9 @@ def message():
 	return HTMLResponse('<h1>Hello World</h1>')
 
 
-@app.get("/movies", tags=['movies'])
+@app.get("/movies", tags=['movies'], response_model=list[Movie])
 def get_movies():
-    return movies
+    return JSONResponse(movies)
 
 
 # Path parameters are used to pass data to the endpoint
