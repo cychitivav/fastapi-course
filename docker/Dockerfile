@@ -1,7 +1,8 @@
 FROM python:3.10
 
 RUN pip install fastapi && \
-    pip install uvicorn
+    pip install uvicorn && \
+    pip install pyjwt
 
 WORKDIR /home/fastapi
 

@@ -253,4 +253,4 @@ Also, it is possible to get the status code from the `status` module of `fastapi
 
 ### Authentication
 #### Token
-The token authentication is used to authenticate the user. 
+The token authentication is used to authenticate the user. It is possible to use `jwt` or `oauth2` in order to authenticate the user. 
